@@ -1,0 +1,131 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: JYK
+ * @Date: 2019-08-06 21:01:42
+ * @LastEditTime: 2019-08-12 21:17:23
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+    <link rel="stylesheet" href="/static/admin/css/diaryMessage.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+<!-- 导航条开始-->
+{include file="common:header"}
+<!-- 导航条结束 -->
+<div class="ch-container">
+    <div class="row">
+        <!-- 左侧导航栏开始-->
+        {include file="common:left"}
+        <!-- 左侧导航栏结束 -->
+
+        <!--面包屑导航栏开始-->
+        <ul class="breadcrumb">
+             
+            <li><a href="{:url('admin/index/index')}">首页</a></li>
+             
+            <li class="active">日迹管理</li>
+        </ul>
+        <!--面包屑导航栏结束-->
+
+        <!--内容开始-->
+        <div class="col-sm-8 wm-table">
+            <!--搜索开始-->
+            <form class="form-inline" action="{:url('admin/User/diarymessage')}" method="post"> 
+                <div class="form-group">
+                  <label class="sr-only" for="username">请输入日迹作者</label>
+                  <input type="email" class="form-control" id="username" placeholder="请输入日迹作者">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+                <a href="{:url('admin/index/diaryadd')}"><button type="button" class="btn btn-primary">发布日迹</button></a>
+              </form>
+            <!--搜索结束-->
+
+            <!--表格开始-->
+            <table>
+                <tr>
+                    <th>日迹作者</th>
+                    <th>作者头像</th>
+                    <th>点赞量</th>
+                    <th>评论量</th>
+                    <th>发布时间</th>
+                    <th>内容</th>
+                    <th class="wm-tr1-th">详情操作</th>
+                    <th>评论情况</th>
+                </tr>
+                <tr>
+                    {volist name="diaryList" id="diary"}
+                    <td>{$diary.uid|getUserName}</td>
+                    <td><img src="/uploads/{$diary.uid|getUserImg}" alt=""></td>
+                    <td>{$diary.fabulous}</td>
+                    <td>{$diary.browse}</td>
+                    <td>{$diary.create_time}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{$diary.did}">查看内容</button>
+                    </td>
+                    <td>
+                        <a href="{:url('admin/index/diaryedit',array('did'=>$diary['did']))}">
+                            <button type="button" class="btn btn-primary">编辑
+                            </button>
+                        </a>
+                        <button type="button" class="btn btn-danger" onClick="warning('确实要删除吗','{:url('admin/User/diarydel',array('did'=>$diary['did']))}')">删除
+                        </button>
+                    </td>
+                    <td>
+                        <a href="{:url('admin/index/diarycomment',array('did'=>$diary['did']))}"><button type="button" class="btn btn-primary">点击查看</button></a>
+                    </td>
+                </tr>
+                {/volist}
+            </table>
+            <!--表格结束-->
+
+            <!--模态框文章内容开始-->
+            {volist name="diaryList" id="diary"}
+            <div class="modal fade bs-example-modal-lg{$diary.did}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-add">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <h4>日迹内容</h4>
+                        <hr>
+                        <p>{$diary.diary_content|raw}</p>
+                        {foreach $diary.diary_img as $key=>$value}
+                        <img src="/uploads/{$value}" alt="" width="200px" height="200px" style="margin: 10px 10px;">
+                        {/foreach}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            <!--模态框文章内容结束-->
+
+            <!--分页页码-->
+            <div class="text-center">{$diaryList|raw}</div>
+            <!--分页页码-->
+        </div>
+        <!--内容结束-->
+
+    </div>
+</div>
+<script src="/static/admin/js/index.js"></script>
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/admin/js/plug.js"></script>
+<script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/jquery.cookie.js"></script>
+<script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+</body>
+</html>

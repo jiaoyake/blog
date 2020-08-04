@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>满天星</title>
+
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/css/article.css">
+
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+{include file="common:header"}
+
+
+
+<!--图片-->
+
+<section>
+
+    <div class="header-images">
+
+        <div class="container title">
+
+            <div class="row">
+
+                <div class="col-sm-5"></div>
+
+                <h2 class="col-sm-2">文章</h2>
+
+                <div class="col-sm-5"></div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-6">
+                    <span>|</span>
+                    {volist name="cateList" id="cate"}
+                    <span><a href="{:url('index/Index/article',array('cid'=>$cate['cid']))}">{$cate.cate_name}</a></span><span>|</span>
+                    {/volist}
+
+                </div>
+
+                <div class="col-sm-3"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!--内容-->
+
+<div class="container list-item">
+
+    <div class="row item">
+
+        <div class="col-sm-8">
+
+            {volist name="articleList" id="article"}
+
+            <div class="row item-cont">
+
+                <div class="col-sm-10 item-cont-left">
+                    <h4><a href="{:url('Index/details',array('aid'=>$article['aid']))}">{$article.article_title}</a></h4>
+
+                <span class="span1">{$article.create_time}</span>
+
+                <span>|</span>
+
+                <span>{$article.cid|getCate}</span>
+                </div>
+
+                <div class="col-sm-2 item-cont-right">
+                    <img src="/uploads/{$article.aid|getArticleUserImg}" alt="">
+                </div>
+            </div>
+
+            {/volist}
+
+            <!--分页页码-->
+
+            <div class="text-center">{$articleList|raw}</div>
+
+            <!--分页页码-->
+
+        </div>
+
+
+
+        <div class="col-sm-4 item-cont2">
+
+            <div class="item-right-search form-group">
+
+                <form action="{:url('Index/article')}" method="post">
+
+                    <input type="text" name="keywords" class="form-control" placeholder="搜索关键字">
+
+                <button type="submit" class="btn btn-default">查找</button>
+
+                </form>
+
+            </div>
+
+
+
+            <div class="item-right-content">
+
+                <ul class="nav nav-tabs nav-pills" role="tablist">
+
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">最新文章</a></li>
+
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">最新评论</a></li>
+
+                </ul>
+
+
+
+                <!-- Tab panes -->
+
+                <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane active" id="home">
+
+                        <ul>
+
+                            {volist name="articlesList" id="article"}
+
+                            <li><a href="{:url('Index/details',array('aid'=>$article['aid']))}">{$article.article_title}</a></li>
+
+                            {/volist}
+
+                        </ul>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="profile">
+
+                        <ul>
+
+                            {volist name="commentsList" id="comments"}
+
+                            <li><a href="{:url('Index/details',array('aid'=>$comments['aid']))}">{$comments.own_name}</a></li>
+
+                            {/volist}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{include file="common:footer"}
+
+</body>
+
+</html>

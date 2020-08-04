@@ -1,0 +1,29 @@
+<!-- 导航条开始-->
+<header>
+    <div class="navbar navbar-default wm-nav" role="navigation">
+        <div class="navbar-inner">
+            <!--导航条左侧开始-->
+            <a class="navbar-brand wm-nav-left" href="{:url('Index/index')}">
+                <img alt="Charisma Logo" src="/static/admin/images/logo.png" class="hidden-xs"/>
+                <span>后台管理中心</span></a>
+            <!--导航条左侧结束-->
+
+            <!--导航条右侧开始-->
+            <!--{if $Think.session.id}-->
+            <div class="btn-group pull-right">
+                <button class="wm-nav-right btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="iconfont icon-yonghu6"></span><span class="hidden-sm hidden-xs"> {$Think.session.username}</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="{:url('user/logout')}">退出</a></li>
+                </ul>
+            </div>
+            <!--{else/}-->
+            <!--<button type="button" class="btn btn-default wm-nav-right2"><a href="{:url('user/login')}">登录</a></button>-->
+            <!--{/if}-->
+            <!--导航条右侧结束-->
+        </div>
+    </div>
+</header>
+<!-- 导航条结束 -->

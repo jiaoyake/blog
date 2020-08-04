@@ -1,0 +1,130 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: JYK
+ * @Date: 2019-08-03 17:33:32
+ * @LastEditTime: 2019-08-12 20:32:25
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+    <link rel="stylesheet" href="/static/admin/css/articleMessage.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+<!-- 导航条开始-->
+{include file="common:header"}
+<!-- 导航条结束 -->
+<div class="ch-container">
+    <div class="row">
+        <!-- 左侧导航栏开始-->
+        {include file="common:left"}
+        <!-- 左侧导航栏结束 -->
+
+        <!--面包屑导航栏开始-->
+        <ul class="breadcrumb">
+             
+            <li><a href="{:url('admin/index/index')}">首页</a></li>
+             
+            <li class="active">文章管理</li>
+        </ul>
+        <!--面包屑导航栏结束-->
+
+        <!--内容开始-->
+        <div class="col-sm-10 wm-table">
+            <!--搜索开始-->
+            <form class="form-inline" action="{:url('admin/index/articlemessage')}" method="post">
+                <div class="form-group">
+                  <label class="sr-only" for="username">请输入文章作者</label>
+                  <input type="email" class="form-control" id="username" placeholder="请输入文章作者">
+                </div>
+                <select class="form-control" name="cate">
+                    <option value="">请选择文章类型</option>
+                    {volist name="cateList" id="cate"}
+                    <option value="{$cate.cid}">{$cate.cate_name}</option>
+                    {/volist}
+                </select>
+                <button type="submit" class="btn btn-default">搜索</button>
+                <a href="{:url('admin/index/articleadd')}"><button type="button" class="btn btn-primary">发布文章</button></a>
+              </form>
+            <!--搜索结束-->
+
+            <!--表格开始-->
+            <table>
+                <tr>
+                    <th style="width: 20%;">文章标题</th>
+                    <th>文章作者</th>
+                    <th>文章类型</th>
+                    <th>点赞量</th>
+                    <th>发布时间</th>
+                    <th>内容</th>
+                    <th class="wm-tr1-th">详情操作</th>
+                    <th>评论情况</th>
+                </tr>
+                {volist name="bookList" id="book"}
+                <tr>
+                <td>{$book.article_title}</td>
+                <td>{$book.uid|getUserName}</td>
+                <td>{$book.cid|getCate}</td>
+                <td>{$book.fabulous}</td>
+                <td>{$book.create_time}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{$book.aid}">查看内容</button></td>
+                <td>
+                    <a href="{:url('admin/index/articleedit',array('aid'=>$book['aid']))}">
+                        <button type="button" class="btn btn-primary">编辑
+                        </button>
+                    </a>
+                    <button type="button" class="btn btn-danger" onClick="warning('确实要删除吗','{:url('admin/User/articledel',array('aid'=>$book['aid']))}')">删除
+                    </button>
+                </td>
+                <td>
+                    <a href="{:url('admin/index/articlecomment',array('aid'=>$book['aid']))}"><button type="button" class="btn btn-primary">点击查看</button></a>
+                </td>
+            </tr>
+                {/volist}
+            </table>
+            <!--表格结束-->
+            <div class="text-center">{$bookList|raw}</div>
+
+            {volist name="bookList" id="book"}
+            <!--模态框文章内容开始-->
+            <div class="modal fade bs-example-modal-lg{$book.aid}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-add">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <h4>{$book.article_title}</h4>
+                        <hr>
+                        <p>{$book.article_content|raw}</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--模态框文章内容结束-->
+            {/volist}
+        </div>
+        <!--内容结束-->
+
+    </div>
+</div>
+<script src="/static/admin/js/index.js"></script>
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/admin/js/plug.js"></script>
+<script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/jquery.cookie.js"></script>
+<script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+</body>
+</html>

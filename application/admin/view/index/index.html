@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+    <link rel="stylesheet" href="/static/admin/css/index.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+<!-- 导航条开始-->
+{include file="common:header"}
+<!-- 导航条结束 -->
+<div class="ch-container">
+    <div class="row">
+        <!-- 左侧导航栏开始-->
+        {include file="common:left"}
+        <!-- 左侧导航栏结束 -->
+
+        <!--右侧内容开始-->
+        <div class="col-sm-5 right-head">
+            <p>系统信息</p>
+        </div>
+        <div class="col-sm-4">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td><span class="iconfont icon-xitong"></span>操作系统</td>
+                <td>Linux</td>
+            </tr>
+            <tr>
+                <td><span class="iconfont icon-hekriconzhuijiaanniuanniu"></span>运行环境</td>
+                <td>未知</td>
+            </tr>
+            <tr>
+                <td><span class="iconfont icon-banben"></span>PHP版本</td>
+                <td>5.6</td>
+            </tr>
+            <tr>
+                <td><span class="iconfont icon-banben"></span>MYSQL版本</td>
+                <td>未知</td>
+            </tr>
+        </table>
+        </div>
+        <!--右侧内容结束-->
+
+    </div>
+</div>
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/admin/js/plug.js"></script>
+<script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/jquery.cookie.js"></script>
+<script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+</body>
+</html>

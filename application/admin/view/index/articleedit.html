@@ -1,0 +1,110 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: JYK
+ * @Date: 2019-08-06 17:54:06
+ * @LastEditTime: 2019-08-12 20:31:21
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/articleEdit.css">
+    <link rel="stylesheet" href="/static/lib/editor/css/editormd.min.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+<!-- 导航条开始-->
+{include file="common:header"}
+<!-- 导航条结束 -->
+<div class="ch-container">
+    <div class="row">
+        <!-- 左侧导航栏开始-->
+        {include file="common:left"}
+        <!-- 左侧导航栏结束 -->
+
+        <!--面包屑导航栏开始-->
+        <ul class="breadcrumb">
+             
+            <li><a href="{:url('admin/index/index')}">首页</a></li>
+            <li><a href="{:url('admin/index/articlemessage')}">文章管理</a></li>
+             
+            <li class="active">编辑文章</li>
+        </ul>
+        <!--面包屑导航栏结束-->
+
+        <!--发布详情开始-->
+        <div class="col-sm-8 wm-release-div">
+                <form action="{:url('admin/User/articleedit')}" method="post" class="form-inline wm-person">
+                    <ol>
+                        <input type="hidden" name="aid" value="{$bookList.aid}">
+                        <li class="wm-div2-li1">
+                            <div class="form-group">
+                                <label class="sr-only" for="article_title">请输入文章标题</label>
+                                <input type="text" name="article_title" class="form-control" id="article_title" value="{$bookList.article_title}" required/>
+                            </div>
+                        </li>
+                        <li class="wm-div2-li2">
+                            <select class="form-control" name="cid">
+                                <option value="{$bookList.cid}" selected>{$bookList.cid|getCate}</option>
+                                {volist name="cateList" id="cate"}
+                                {if $bookList.cid ==  $cate.cid}
+                                {else /}
+                                <option value="{$cate.cid}">{$cate.cate_name}</option>
+                                {/if}
+                                {/volist}
+                            </select>
+                        </li>
+                        <li class="wm-div2-li3">
+                            <div class="editormd" id="article-editormd">
+                                <textarea class="editormd-markdown-textarea" name="article_content">{$bookList.article_content|strip_tags}</textarea>
+                                <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                                <textarea class="editormd-html-textarea" name="article_content"></textarea>
+                            </div>
+
+                        </li>
+                    </ol>
+                    <button type="submit" class="btn btn-default">确认编辑</button>
+                </form>
+        </div>
+        <!--发布详情结束-->
+
+    </div>
+</div>
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/admin/js/plug.js"></script>
+<script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/jquery.cookie.js"></script>
+<script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+<script src="/static/lib/editor/editormd.min.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        editormd("article-editormd", {
+            width : "100%",
+            height : 520,
+            syncScrolling : "single",
+            //你的lib目录的路径，和你引入js,css路径一样
+            path    : "/static/lib/editor/lib/",
+            //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+            saveHTMLToTextarea : true,
+            imageUpload : true,
+            emoji: true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "{:url('admin/User/uploadimg')}",
+        });
+    });
+</script>
+</body>
+</html>

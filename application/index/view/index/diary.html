@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>满天星</title>
+
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/css/diary.css">
+
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+{include file="common:header"}
+
+
+<div class="item-box">
+
+    {volist name="diaryList" id="diary"}
+
+    <div class="item">
+
+        <div class="item-title">
+
+            <div class="item-title-div1">
+
+                <img src="/uploads/{$diary.uid|getUserImg}" alt="">
+
+            </div>
+
+            <div class="item-title-div2">
+
+                <i class="iconfont icon-rili"></i>
+
+                <span>{$diary.create_time}</span>
+
+            </div>
+
+        </div>
+
+        <div class="item-content">
+
+            <p>{$diary.diary_content|raw}</p>
+
+        </div>
+
+        <div class="item-foot">
+
+            <button type="button" class="btn btn-default btn-sm btn-fabulous"><i class="glyphicon glyphicon-thumbs-up"></i></button><span>{$diary.fabulous}</span>
+
+            <i class="iconfont icon-duanxin"></i><span>{volist name="countList" id="count"}{if $diary.did == $count.did}{$count.count_cid}{/if}{/volist}</span>
+
+        </div>
+
+        <div class="item-comment">
+
+            <div class="item-comment-add">
+
+                <p>添加新评论</p>
+
+            </div>
+
+            <form action="{:url('admin/User/addcomment')}" method="get">
+
+                <div class="form-group">
+                    <input type="hidden" name="did" value="{$diary.did}">
+
+                    <input type="text" class="form-control" name="own_name" placeholder="昵称（必填）">
+
+                    <input type="email" class="form-control" name="own_email" placeholder="邮箱（必填）">
+
+                    <textarea name="own_content" cols="80" rows="5" placeholder="评论内容（必填）"
+                              class="form-control"></textarea>
+
+                </div>
+
+                <button type="submit" class="btn btn-default item-comment-btn">确定评论</button>
+
+            </form>
+
+            {volist name="commentList" id="comment"}
+            {if $diary.did == $comment.did}
+            <!--评论部分-->
+            <div class="item-oldcomment">
+                <div class="item-oldcomment-title">
+
+                    <img src="/static/images/item-head.jpg" alt="">
+
+                    <span class="item-oldcomment-span1">{$comment.own_name}</span>
+
+                    <span class="item-oldcomment-span2">{$comment.create_time}</span>
+
+                    <p>{$comment.own_content}</p>
+
+                    <button type="button" class="btn btn-default item-comment-btn" data-toggle="modal"
+                            data-target="#myModal{$comment.cid}">回复
+                    </button>
+
+                </div>
+            </div>
+            <!--评论部分-->
+            <!--回复部分-->
+            {volist name="replyList" id="reply"}
+            {if $reply.cid == $comment.cid}
+            <div class="item-oldcomment">
+
+                <div class="item-oldcomment-title">
+
+                    <span class="item-oldcomment-span">{$reply.rusername}</span><span>回复了</span><span
+                        class="item-oldcomment-span1">{$comment.own_name}</span>
+
+                    <span class="item-oldcomment-span3">{$reply.create_time}</span>
+
+                    <p>{$reply.rcontent}</p>
+
+                    <!--<button type="button" class="btn btn-default item-comment-btn" data-toggle="modal" data-target="#myModal{$comment.cid}">回复</button>-->
+
+                </div>
+
+            </div>
+            {/if}
+            {/volist}
+            <!--回复部分-->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal{$comment.cid}" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+
+                <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span>
+                            </button>
+
+                        </div>
+                        <form action="{:url('admin/User/addreply')}" method="post">
+
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <input type="hidden" name="cid" value="{$comment.cid}">
+
+                                    <input type="text" class="form-control" name="rusername" placeholder="昵称（必填）">
+
+                                    <input type="email" class="form-control" name="remail" placeholder="邮箱（必填）">
+
+                                    <textarea name="rcontent" cols="80" rows="8" placeholder="评论内容（必填）"
+                                              class="form-control"></textarea>
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-default">确定回复</button>
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Modal -->
+            {/if}
+            {/volist}
+
+        </div>
+
+    </div>
+
+    {/volist}
+
+    <!--分页页码-->
+
+    <div class="text-center">{$diaryList|raw}</div>
+
+    <!--分页页码-->
+
+</div>
+
+
+{include file="common:footer"}
+
+</body>
+
+</html>

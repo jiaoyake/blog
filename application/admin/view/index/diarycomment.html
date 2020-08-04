@@ -1,0 +1,143 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-09 20:43:02
+ * @LastEditTime: 2019-08-12 20:33:53
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+    <link rel="stylesheet" href="/static/admin/css/diaryComment.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- 导航条开始-->
+    {include file="common:header"}
+    <!-- 导航条结束 -->
+    <div class="ch-container">
+        <div class="row">
+            <!-- 左侧导航栏开始-->
+            {include file="common:left"}
+            <!-- 左侧导航栏结束 -->
+
+            <!--面包屑导航栏开始-->
+            <ul class="breadcrumb">
+                 
+                <li><a href="admin/index/index">首页</a></li>
+                 
+                <li><a href="{:url('admin/index/diarymessage')}">日迹管理</a></li>
+                 
+                <li class="active">评论</li>
+            </ul>
+            <!--面包屑导航栏结束-->
+            <!--内容开始-->
+            <div class="col-sm-8 wm-table">
+                <!--表格开始-->
+                <!--搜索开始-->
+                <div class="wm-search">
+                    <form class="form-inline" action="{:url('admin/User/diarycomment',array('did' => $did))}" method="get">
+                        <div class="form-group">
+                            <label class="sr-only" for="name">请输入评论者</label>
+                            <input type="text" name="own_name" class="form-control" id="name" placeholder="请输入评论者">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
+                </div>
+                <!--搜索结束-->
+                <table>
+                    <tr>
+                        <th>日迹作者</th>
+                        <th>评论者</th>
+                        <th>评论时间</th>
+                        <th class="wm-th">评论内容</th>
+                        <th>回复者</th>
+                        <th>操作</th>
+                    </tr>
+                    {volist name="commentList" id="comment"}
+                    <tr>
+                        <td>{$comment.did|getDiaryName|getUserName}</td>
+                        <td>{$comment.own_name}</td>
+                        <td>{$comment.create_time}</td>
+                        <td>{$comment.own_content}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target=".bs-example-modal-lg{$comment.cid}">
+                                点击查看
+                            </button>
+                            <!-- 模态框开始 -->
+                            <div class="modal fade bs-example-modal-lg{$comment.cid}" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">回复列表</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table>
+                                                <tr>
+                                                    <th>回复者</th>
+                                                    <th class="wm-modal-th">回复内容</th>
+                                                    <th>回复时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                {volist name="replyList" id="reply"}
+                                                {if $reply.cid == $comment.cid}
+                                                <tr>
+                                                    <td>{$reply.rusername}</td>
+                                                    <td>{$reply.rcontent}</td>
+                                                    <td>{$reply.create_time}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger"
+                                                            onClick="warning('确实要删除吗','{:url('admin/User/replydel',array('rid'=>$reply['rid']))}')">删除
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                {/if}
+                                                {/volist}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--模态框结束-->
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger"
+                                onClick="warning('确实要删除吗','{:url('admin/User/commentdel',array('cid'=>$comment['cid']))}')">删除
+                            </button>
+                        </td>
+                    </tr>
+                    {/volist}
+                </table>
+                <!--表格结束-->
+            </div>
+            <!--内容结束-->
+        </div>
+    </div>
+
+    <script src="/static/admin/js/index.js"></script>
+    <script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/admin/js/plug.js"></script>
+    <script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/admin/js/jquery.cookie.js"></script>
+    <script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+</body>
+
+</html>

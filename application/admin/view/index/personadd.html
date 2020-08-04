@@ -1,0 +1,107 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: JYK
+ * @Date: 2019-03-18 17:26:40
+ * @LastEditTime: 2019-08-12 20:44:27
+ * @LastEditors: Please set LastEditors
+ -->
+ <!DOCTYPE html>
+ <html lang="zh-CN">
+ 
+ <head>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+     <meta name="author" content="Muhammad Usman">
+     <title>后台管理系统</title>
+     <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+     <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+     <link rel="stylesheet" href="/static/admin/css/nav.css">
+     <link rel="stylesheet" href="/static/admin/css/personAdd.css">
+ 
+     <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+ </head>
+ 
+ <body>
+     <!-- 导航条开始-->
+     {include file="common:header"}
+     <!-- 导航条结束 -->
+     <div class="ch-container">
+         <div class="row">
+             <!-- 左侧导航栏开始-->
+             {include file="common:left"}
+             <!-- 左侧导航栏结束 -->
+ 
+             <!--面包屑导航栏开始-->
+             <ul class="breadcrumb">
+                  
+                 <li><a href="{:url('admin/index/index')}">首页</a></li>
+                  
+                 <li class="active">添加管理员</li>
+ 
+             </ul>
+             <!--面包屑导航栏结束-->
+ 
+             <!--添加管理员开始-->
+             <div class="tab col-sm-9 wm-tab" role="tabpanel">
+                 <div class="wm-tab-nav">
+                     添加管理员
+                 </div>
+                 <div class="tab-content">
+                     <div role="tabpanel" class="tab-pane fade in active" id="Section_new">
+                         <form class="form-horizontal" action="{:url('admin/User/add')}" method="post"
+                             enctype="multipart/form-data">
+                             <div class="form-group person-form">
+                                 <label for="name" class="col-sm-2 control-label">昵称</label>
+                                 <div class="col-sm-10 person-input">
+                                     <input type="text" name="username" class="form-control" id="name" required/>
+                                 </div>
+                             </div>
+                             <div class="form-group person-form">
+                                 <label for="psd" class="col-sm-2 control-label">密码</label>
+                                 <div class="col-sm-10 person-input">
+                                     <input type="password" name="password" class="form-control" id="psd" required/>
+                                 </div>
+                             </div>
+                             <div class="form-group person-form">
+                                 <label for="mobile" class="col-sm-2 control-label">手机号</label>
+                                 <div class="col-sm-10 person-input">
+                                     <input type="text" name="mobile" class="form-control" id="mobile" required/>
+                                 </div>
+                             </div>
+                             <div class="form-group person-form">
+                                 <label for="email" class="col-sm-2 control-label">邮箱</label>
+                                 <div class="col-sm-10 person-input">
+                                     <input type="email" name="email" class="form-control" id="email" required/>
+                                 </div>
+                             </div>
+                             <div class="form-group person-form">
+                                     <label for="user_img" class="col-sm-2 control-label">头像</label>
+                                     <div class="col-sm-10 person-input">
+                                         <input type="file" name="user_img" class="form-control" id="user_img">
+                                     </div>
+                                 </div>
+                             <div class="form-group person-form">
+                                 <div class="col-sm-offset-2 col-sm-10">
+                                     <button type="submit" class="btn btn-default">确定添加</button>
+                                 </div>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+             <!--添加管理员结束-->
+         </div>
+     </div>
+ 
+     <script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+     <script src="/static/admin/js/plug.js"></script>
+     <script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+     <script src="/static/admin/js/jquery.cookie.js"></script>
+     <script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+ </body>
+ 
+ </html>

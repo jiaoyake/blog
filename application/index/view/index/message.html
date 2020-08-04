@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>满天星</title>
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+    <link rel="stylesheet" href="/static/lib/editor/css/editormd.min.css">
+    <link rel="stylesheet" href="/static/css/message.css">
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+{include file="common:header"}
+
+<!--图片-->
+<div class="container">
+    <div class="message-title">
+        <img src="/static/images/liuyan.jpg" alt="" style="width: 86%;margin-left: 7%;">
+    </div>
+    <div class="row message-content" style="width: 86%;margin-left: 7%;">
+            <div class="item-comment">
+                <div class="item-comment-add">
+                    <p>发表留言</p>
+                </div>
+                <form action="{:url('admin/User/addmessage')}" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="mes_name" placeholder="昵称（必填）">
+                    <input type="email" class="form-control" name="mes_email" placeholder="邮箱（必填）">
+                    <!--<textarea name="mes_text" cols="80" rows="7" placeholder="留言内容（必填）" class="form-control"></textarea>-->
+                    <div class="editormd" id="article-editormd" style="top: 20px;left: 10px;">
+                        <textarea class="editormd-markdown-textarea" name="mes_text" placeholder="留言内容"></textarea>
+                        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                        <textarea class="editormd-html-textarea" name="mes_text"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default mes-btn">确定留言</button>
+                </form>
+                {volist name="messageList" id="message"}
+                <div class="item-oldcomment">
+                    <div class="item-oldcomment-title">
+                        <img src="/static/images/item-head.jpg" alt="">
+                        <span class="item-oldcomment-span1">{$message.mes_name}</span>
+                        <span class="item-oldcomment-span2">{$message.create_time}</span>
+                        <p>{$message.mes_text|raw}</p>
+                        <button type="button" class="btn btn-default mes-btn" data-toggle="modal" data-target="#myModal{$message.mid}">回复</button>
+                    </div>
+                </div>
+                <!--回复部分-->
+                {volist name="replyList" id="reply"}
+                {if $reply.mid == $message.mid}
+                <div class="item-oldcomment">
+
+                    <div class="item-oldcomment-title">
+
+                        <span class="item-oldcomment-span">{$reply.rusername}</span><span>回复了</span><span
+                            class="item-oldcomment-span1">{$message.mes_name}</span>
+
+                        <span class="item-oldcomment-span3">{$reply.create_time}</span>
+
+                        <p>{$reply.rcontent}</p>
+
+                    </div>
+
+                </div>
+                {/if}
+                {/volist}
+                <!--回复部分-->
+                <!-- Modal -->
+                <div class="modal fade" id="myModal{$message.mid}" tablogin="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <form action="{:url('admin/User/addreply')}" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="mid" value="{$message.mid}">
+                                    <input type="text" class="form-control" name="rusername" placeholder="昵称（必填）">
+                                    <input type="text" class="form-control" name="remail" placeholder="邮箱（必填）">
+                                    <textarea name="rcontent" cols="80" rows="8" placeholder="留言内容（必填）" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default">确定回复</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                {/volist}
+            </div>
+    </div>
+</div>
+
+
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/lib/editor/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        editormd("article-editormd", {
+            width : "94%",
+            height : 320,
+            syncScrolling : "single",
+            //你的lib目录的路径，和你引入js,css路径一样
+            path    : "/static/lib/editor/lib/",
+            //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+            toolbarIcons : function() {
+                // Or return editormd.toolbarModes[name]; // full, simple, mini
+                // Using "||" set icons align right.
+                return ["undo", "redo", "|", "bold", "italic", "hr", "|", "h1", "h2", "h3", "h4", "h5", "h6", "list-ul", "list-ol", "|", "preformatted-text", "code-block", "table", "datetime", "emoji", "||",  "fullscreen"]
+            },
+            saveHTMLToTextarea : true,
+            imageUpload : true,
+            emoji: true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            // imageUploadURL : "/upload/image"
+        });
+    });
+</script>
+
+{include file="common:footer"}
+</body>
+</html>

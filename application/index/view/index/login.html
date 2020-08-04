@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>满天星</title>
+
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/css/login.css">
+
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+
+    <link rel="shortcut icon" href="/static/images/icon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+{include file="common::adminHeader"}
+
+<div id="particles-js">
+
+    <div class="login">
+
+        <div class="login-top">
+
+            管理员登录
+
+        </div>
+
+        <form action="{:url('admin/User/addLogin')}" method="post">
+
+        <div class="login-center clearfix">
+
+            <div class="login-center-img"><span class="iconfont icon-yonghu"></span></div>
+
+            <div class="login-center-input">
+
+                <input type="text" name="username" placeholder="管理员账号" onfocus="this.placeholder=''" onblur="this.placeholder='管理员账号'" required/>
+
+                <div class="login-center-input-text">用户名</div>
+
+            </div>
+
+        </div>
+
+        <div class="login-center clearfix">
+
+
+
+            <div class="login-center-img"><span class="iconfont icon-mima1"></span></div>
+
+            <div class="login-center-input">
+
+                <input type="password" name="password" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" required/>
+
+                <div class="login-center-input-text">密码</div>
+
+            </div>
+
+
+
+            <button class="login-button" type="submit">
+
+                登陆
+
+            </button>
+
+        </div>
+
+        </form>
+
+    </div>
+
+    <div class="sk-rotating-plane"></div>
+
+</div>
+
+
+
+
+
+<script src="/static/lib/jquery/jquery.js"></script>
+
+<script src="/static/lib/jquery/jquery.min.js"></script>
+
+<script src="/static/lib/bootstrap/js/bootstrap.js"></script>
+
+</body>
+
+</html>

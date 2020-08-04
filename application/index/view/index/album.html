@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>满天星</title>
+
+    <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/css/album.css">
+
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+{include file="common:header"}
+
+
+
+<!--标题-->
+
+<div class="album-title">
+
+    <p>PHOTOS</p>
+
+    <hr>
+
+</div>
+
+<!--标题-->
+
+<!--相册-->
+
+<div class="album-middle container">
+
+    <div class="col-sm-12 row album-content-title">
+
+        <ul>
+
+            {volist name="cateList" id="cate"}
+            <li><a href="{:url('index/Index/album',array('cid'=>$cate['cid']))}">{$cate.cate_name}</a></li>
+            {/volist}
+
+        </ul>
+
+    </div>
+
+    <div class="album-content">
+
+        {volist name="albumList" id="album"}
+        {foreach $album.imgs as $key=>$value}
+        <div class="album-img">
+                <img src="/uploads/{$value}" alt="">
+        </div>
+        {/foreach}
+        {/volist}
+
+    </div>
+
+</div>
+
+<!--相册-->
+
+
+
+
+
+{include file="common:footer"}
+
+</body>
+
+</html>

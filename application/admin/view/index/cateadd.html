@@ -1,0 +1,90 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: JYK
+ * @Date: 2019-08-02 15:43:34
+ * @LastEditTime: 2019-08-12 20:45:38
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+    <meta name="author" content="Muhammad Usman">
+    <title>后台管理系统</title>
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/admin/lib/bootstrap-tour/build/css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/admin/css/iconfont.css">
+    <link rel="stylesheet" href="/static/admin/css/nav.css">
+    <link rel="stylesheet" href="/static/admin/css/photosAdd.css">
+
+    <link rel="shortcut icon" href="/static/admin/images/icon.png" type="image/x-icon">
+</head>
+<body>
+<!-- 导航条开始-->
+{include file="common:header"}
+<!-- 导航条结束 -->
+<div class="ch-container">
+    <div class="row">
+        <!-- 左侧导航栏开始-->
+        {include file="common:left"}
+        <!-- 左侧导航栏结束 -->
+
+        <!--面包屑导航栏开始-->
+        <ul class="breadcrumb">
+             
+            <li><a href="{:url('admin/index/index')}">首页</a></li>
+            <li><a href="{:url('admin/index/catemessage')}">分类管理</a></li>
+             
+            <li class="active">添加分类</li>
+        </ul>
+        <!--面包屑导航栏结束-->
+
+        <!--添加分类开始-->
+        <div class="tab col-sm-9 wm-tab" role="tabpanel">
+            <div class="wm-tab-nav">
+                添加分类
+            </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="Section_new">
+                    <form class="form-horizontal" action="{:url('admin/User/cateadd')}" method="post"
+                          enctype="multipart/form-data">
+                        <div class="form-group person-form">
+                            <label for="name" class="col-sm-2 control-label">分类所属</label>
+                            <div class="col-sm-10 person-input">
+                                <select class="form-control" name="is_article">
+                                    <option value="">请选择分类</option>
+                                    <option value="1">文章</option>
+                                    <option value="2">相册</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group person-form">
+                            <label for="img" class="col-sm-2 control-label">分类名称</label>
+                            <div class="col-sm-10 person-input">
+                                <input type="text" name="cate_name" class="form-control" required/>
+                            </div>
+                        </div>
+                        <div class="form-group person-form">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">确定添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--添加分类结束-->
+    </div>
+</div>
+
+<script src="/static/admin/js/jquery-1.12.4.min.js"></script>
+<script src="/static/admin/js/plug.js"></script>
+<script src="/static/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/js/jquery.cookie.js"></script>
+<script src="/static/admin/lib/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+</body>
+</html>
